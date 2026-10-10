@@ -1,0 +1,27 @@
+[Unit]
+Description=Zero Trust Lab FastAPI service (TLS on private network)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ztapi
+Group=ztapi
+WorkingDirectory=/opt/zero-trust/backend
+EnvironmentFile=/etc/zero-trust-api.env
+ExecStart=/opt/zero-trust/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8443 --ssl-certfile /etc/zero-trust-api/backend.crt --ssl-keyfile /etc/zero-trust-api/backend.key --proxy-headers --forwarded-allow-ips=10.10.1.10
+Restart=on-failure
+RestartSec=3
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/zero-trust-api
+LockPersonality=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

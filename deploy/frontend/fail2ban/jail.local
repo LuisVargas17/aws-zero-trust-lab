@@ -1,0 +1,10 @@
+[zero-trust-auth]
+enabled  = true
+filter   = zero-trust-auth
+logpath  = /var/log/nginx/zero_trust_auth.log
+backend  = auto
+maxretry = 5
+findtime = 10m
+bantime  = 15m
+port     = http,https
+banaction = nftables-multiport

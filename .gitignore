@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.db
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Terraform state/providers (never commit state files)
+infra/terraform/.terraform/
+infra/terraform/terraform.tfstate
+infra/terraform/terraform.tfstate.*
+infra/terraform/.terraform.lock.hcl
+infra/terraform/tfplan
+
+# Private certificates, keys and deploy artifacts
+certs/generated/
+dist/
+*.pem
+*.key
+*.csr
+*.srl
+.env
+.env.*
+!.env.example

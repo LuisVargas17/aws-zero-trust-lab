@@ -1,0 +1,20 @@
+flowchart TB
+  U[Usuario / Navegador] -->|HTTPS 443| EIP[Elastic IP + DNS]
+  subgraph F[ VPC Frontend · 10.10.0.0/16 ]
+    IGWF[Internet Gateway]
+    FE[EC2 Ubuntu · Nginx + React\n10.10.1.10\nCertbot · Security Headers · Fail2Ban]
+    IGWF --> FE
+  end
+  EIP --> IGWF
+  subgraph B[ VPC Backend · 10.20.0.0/16 ]
+    NATPUB[Subred pública solo para NAT]
+    NAT[NAT Gateway + EIP]
+    PRIV[Subred privada 10.20.2.0/24]
+    BE[EC2 Ubuntu · FastAPI + JWT\n10.20.2.10:8443\nTLS interno · SQLAlchemy/SQLite]
+    NATPUB --> NAT
+    PRIV --> BE
+    BE -. salida para parches/SSM .-> NAT
+  end
+  FE -->|VPC Peering · TLS 8443\nSG limitado a 10.10.1.10/32| BE
+  SSM[AWS Systems Manager] -. administración sin SSH público .-> FE
+  SSM -. administración sin SSH público .-> BE

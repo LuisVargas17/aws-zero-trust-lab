@@ -1,0 +1,12 @@
+aws_region               = "us-east-1"
+project_name             = "zt-lab"
+frontend_instance_type   = "t3.micro"
+backend_instance_type    = "t3.micro"
+domain_name              = "app.tu-dominio.com"
+admin_email              = "tu-correo@example.com"
+# Opcionales. Debes tener una zona hospedada pública creada para usar Route 53.
+# route53_zone_id = "Z0123456789ABCDEFGHIJ"
+
+# Para la práctica, conserva los CIDR por defecto. No deben solaparse con redes conectadas.
+# frontend_vpc_cidr = "10.10.0.0/16"
+# backend_vpc_cidr  = "10.20.0.0/16"
